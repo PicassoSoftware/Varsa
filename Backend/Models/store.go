@@ -1,12 +1,12 @@
-package store
+package model
 
 type Store struct{
-	tc string
-	vkn string
-	mobile string
-	mail string
-	password string
-	il string
-	vergi_dairesi string
+	TC 		           string
+	VKN 			   string
+	Mobile    		   string
+	Mail               string
+	Password		   string
+	City 			   string
+	TaxAdministration  string
 
 }

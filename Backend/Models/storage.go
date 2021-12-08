@@ -1,8 +1,8 @@
-package storage
+package model
 
 type Storage struct{
-	vkn string
-	branch_no  int
-	product_id int
-	product_count int
+	VKN string
+	BranchNo  int
+	ProductId int
+	ProductCount int
 }

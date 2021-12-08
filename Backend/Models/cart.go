@@ -1,9 +1,10 @@
-package cart 
+package model
+ 
 
 type Cart struct {
 
-	Udid  			string 
-	Product_ID  	int
-	Product_Count  	int
+	UDID 			string 
+	ProductId  	int
+	ProductCount  	int
 
 }

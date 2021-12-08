@@ -1,9 +1,10 @@
-package branchoffice
+package model
+
 
 type Branchoffice struct {
 
-	Vkn          	string
-	Branch_no  		int
+	VKN         	string
+	BranchNo  		int
 	Mobile   		string 
 	Mail     		string 
 	TC 				string 
@@ -11,7 +12,7 @@ type Branchoffice struct {
 	City   			string
 	Town   			string
 	Street 			string
-	Number 			int
+	No		int
 
 
 }

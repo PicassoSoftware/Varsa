@@ -1,7 +1,8 @@
-package product
+package model
 
 import (
 	"time" 
+
 )
 
  
@@ -10,8 +11,8 @@ type Product struct {
 	Name 				string
 	Stock	 			int
 	Photo 				string
-	Expiration date   	time.Time 
+	ExpirationDate   	time.Time 
 	Price   			int
-	Detailed_info 		int
+	DetailedInfo 		int
 
 }

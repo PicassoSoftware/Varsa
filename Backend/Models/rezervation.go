@@ -1,12 +1,13 @@
-package rezervation
+package model
 
 import (
 	"time"
+
 )
 
-type Rezervation struct{
-	udid int
-	deadline time.Time
-	code string
-	amount float32
+type Rezervation struct {
+	UDID    int
+	Deadline time.Time
+	Code string
+	Amount   float32
 }
