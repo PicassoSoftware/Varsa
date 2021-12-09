@@ -1,17 +1,20 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type Branchoffice struct {
 	gorm.Model
-	VKN       string
-	BranchNo  int
-	Mobile    string
-	Mail      string
-	TC        string
-	Password  string
-	City      string
-	Town      string
-	Street    string
-	No        int
+	VKN       	string		`gorm:"primaryKey"`	
+	BranchNo  	int			`gorm:"primaryKey"`
+	Mobile    	string
+	Mail      	string
+	TC        	string
+	Password  	string
+	City      	string
+	Town      	string
+	Street    	string
+	No        	int
+	Store     	Store 		`gorm:"foreignKey:VKN;references:VKN"`
 }

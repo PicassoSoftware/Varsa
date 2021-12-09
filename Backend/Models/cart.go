@@ -1,10 +1,16 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+	"github.com/jinzhu/gorm"
+)
 
 type Cart struct {
 	gorm.Model
-	UDID         string
-	ProductId    int
-	ProductCount int
+	UDID         	string		`gorm:"primaryKey"`
+	ProductId    	int			`gorm:"primaryKey"`
+	ProductCount 	int
+	Deadline        time.Time
+	Code            string	
+	Product 		Product 	`gorm:"foreignKey:ProductId;references:ID"`
 }

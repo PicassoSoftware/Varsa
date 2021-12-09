@@ -22,7 +22,6 @@ func OpenDb(){
     db.AutoMigrate(m.Storage{})
     db.AutoMigrate(m.Branchoffice{})
     db.AutoMigrate(m.Cart{})
-    db.AutoMigrate(m.Rezervation{})
     db.AutoMigrate(m.Product{})
     
 

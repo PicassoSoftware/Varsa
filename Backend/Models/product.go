@@ -9,7 +9,7 @@ import (
  
 type Product struct {
 	gorm.Model
-	ID  				int
+	ID  				int			`gorm:"primaryKey"`
 	Name 				string
 	Stock	 			int
 	Photo 				string
