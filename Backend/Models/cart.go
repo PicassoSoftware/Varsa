@@ -1,10 +1,10 @@
 package model
- 
+
+import "github.com/jinzhu/gorm"
 
 type Cart struct {
-
-	UDID 			string 
-	ProductId  	int
-	ProductCount  	int
-
+	gorm.Model
+	UDID         string
+	ProductId    int
+	ProductCount int
 }

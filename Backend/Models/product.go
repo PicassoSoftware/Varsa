@@ -1,12 +1,14 @@
 package model
 
 import (
-	"time" 
-
+	"time"
+	"github.com/jinzhu/gorm"
+	
 )
 
  
 type Product struct {
+	gorm.Model
 	ID  				int
 	Name 				string
 	Stock	 			int

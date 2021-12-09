@@ -1,8 +1,11 @@
 package model
 
-type Storage struct{
-	VKN string
-	BranchNo  int
-	ProductId int
+import "github.com/jinzhu/gorm"
+
+type Storage struct {
+	gorm.Model
+	VKN          string
+	BranchNo     int
+	ProductId    int
 	ProductCount int
 }

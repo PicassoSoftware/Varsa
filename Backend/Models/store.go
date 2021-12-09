@@ -1,12 +1,14 @@
 package model
 
-type Store struct{
-	TC 		           string
-	VKN 			   string
-	Mobile    		   string
-	Mail               string
-	Password		   string
-	City 			   string
-	TaxAdministration  string
+import "github.com/jinzhu/gorm"
 
+type Store struct {
+	gorm.Model
+	TC                string
+	VKN               string
+	Mobile            string
+	Mail              string
+	Password          string
+	City              string
+	TaxAdministration string
 }

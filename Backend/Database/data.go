@@ -1,9 +1,10 @@
 package database
 
 import (
-    "database/sql"
+    m "varsa/Models"
     "github.com/lib/pq"
     "os"
+    "github.com/jinzhu/gorm"
 )
 
 func OpenDb(){
@@ -11,11 +12,18 @@ func OpenDb(){
     connection, _ := pq.ParseURL(url)
     connection += " sslmode=require"
 
-    db, err := sql.Open("postgres", connection)
+    db, err := gorm.Open("postgres", connection)
     if err != nil {
         println(err)
     }
 
-    println("düzeldi: ")
-    println(db)
+    defer db.Close()
+    db.AutoMigrate(m.Store{})
+    db.AutoMigrate(m.Storage{})
+    db.AutoMigrate(m.Branchoffice{})
+    db.AutoMigrate(m.Cart{})
+    db.AutoMigrate(m.Rezervation{})
+    db.AutoMigrate(m.Product{})
+    
+
 }
