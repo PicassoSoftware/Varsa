@@ -4,18 +4,18 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type Branchoffice struct {
+type Branchoffice struct { 
 	gorm.Model
-	VKN      string `gorm:"primaryKey"`
-	BranchNo int    `gorm:"primaryKey"`
-	Mobile   string
-	Mail     string
-	TC       string
-	Password string
-	City     string
-	Town     string
-	District string
-	Street   string
-	No       int
-	Store    Store `gorm:"foreignKey:VKN;references:VKN"`
+	VKN      string 		`json:"vkn" gorm:"primaryKey"`
+	BranchNo int    		`json:"brancno" gorm:"primaryKey"`
+	Mobile   string			`json:"mobile"`
+	Mail     string			`json:"mail"`
+	TC       string			`json:"tc"`
+	Password string			`json:"password"`
+	City     string			`json:"city"`
+	Town     string			`json:"town"`
+	Street   string			`json:"street"`
+	No       int			`json:"no"`
+	Store    Store 			`json:"store" gorm:"foreignKey:VKN;references:VKN"`
 }
+
