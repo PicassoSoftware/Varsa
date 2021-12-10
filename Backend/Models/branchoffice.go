@@ -14,6 +14,7 @@ type Branchoffice struct {
 	Password string
 	City     string
 	Town     string
+	District string
 	Street   string
 	No       int
 	Store    Store `gorm:"foreignKey:VKN;references:VKN"`
