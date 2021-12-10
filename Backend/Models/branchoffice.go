@@ -15,6 +15,7 @@ type Branchoffice struct {
 	City     string			`json:"city"`
 	Town     string			`json:"town"`
 	Street   string			`json:"street"`
+	District string         `json:"district"`
 	No       int			`json:"no"`
 	Store    Store 			`json:"store" gorm:"foreignKey:VKN;references:VKN"`
 }
