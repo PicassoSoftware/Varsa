@@ -1,28 +1,36 @@
 package database
 
 import (
-    m "varsa/Models"
-    "github.com/lib/pq"
-    "os"
-    "github.com/jinzhu/gorm"
+	"fmt"
+
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-func OpenDb(){
-    url := os.Getenv("postgres://vrwefgmxgaoqnt:3f7b39c9726f848771b97ccac65e53bad3b28e6a8f2f8c71265e5e92d750bcd6@ec2-54-160-35-196.compute-1.amazonaws.com:5432/d1s7p6c803bq6n")
-    connection, _ := pq.ParseURL(url)
-    connection += " sslmode=require"
+type Mysql struct {
+	GormDB *gorm.DB
+}
 
-    db, err := gorm.Open("postgres", connection)
-    if err != nil {
-        println(err)
-    }
+func MysqlConnStr(host, port, unm, pwd, db string) string {
+	return fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", host, port, unm, pwd, db)
+}
 
-    defer db.Close()
-    db.AutoMigrate(m.Store{})
-    db.AutoMigrate(m.Storage{})
-    db.AutoMigrate(m.Branchoffice{})
-    db.AutoMigrate(m.Cart{})
-    db.AutoMigrate(m.Product{})
-    
+func NewMysql(connstr string) (Mysql, error) {
+	db, err := gorm.Open(postgres.Open(connstr), &gorm.Config{})
 
+	if err != nil {
+		return Mysql{}, err
+	}
+
+	return Mysql{
+		GormDB: db,
+	}, nil
+}
+
+func (m Mysql) Close() error {
+	db, err := m.GormDB.DB()
+	if err != nil {
+		return err
+	}
+	return db.Close()
 }
