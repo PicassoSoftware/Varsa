@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         extendBody: true,
         appBar: AppBar(
-          title: const Text('Akşam Pazarı'),
+          title: const Text('Varsa'),
         ),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

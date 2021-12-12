@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	"encoding/json"
@@ -18,7 +18,7 @@ func decode(r *http.Request, w http.ResponseWriter, v interface{}) bool {
 
 func encode(w http.ResponseWriter, v interface{}) bool {
 	err := json.NewEncoder(w).Encode(v)
-	
+
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return false

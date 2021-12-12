@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	m "varsa/Models"
+	model "varsa/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -35,16 +35,15 @@ func (m Posgres) Close() error {
 	return db.Close()
 }
 
-func (m Posgres) CreateStore(store *m.Store) error {
+func (m Posgres) CreateStore(store *model.Store) error {
 	return m.GormDB.Create(store).Error
 }
 
+func (d Posgres) InitialMigration() {
 
-func (d Posgres) InitialMigration(){
-
-	d.GormDB.AutoMigrate(m.Store{})
-	d.GormDB.AutoMigrate(m.Branchoffice{})
-	d.GormDB.AutoMigrate(m.Product{})
-	d.GormDB.AutoMigrate(m.Cart{})
-	d.GormDB.AutoMigrate(m.Storage{})
+	d.GormDB.AutoMigrate(model.Store{})
+	d.GormDB.AutoMigrate(model.Branchoffice{})
+	d.GormDB.AutoMigrate(model.Product{})
+	d.GormDB.AutoMigrate(model.Cart{})
+	d.GormDB.AutoMigrate(model.Storage{})
 }

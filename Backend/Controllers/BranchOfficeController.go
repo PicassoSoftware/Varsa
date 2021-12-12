@@ -1,8 +1,8 @@
-package controllers
+package controller
 
 import (
 	"net/http"
-	database "varsa/Database"
+	"varsa/database"
 )
 
 type BranchOfficeController struct {
