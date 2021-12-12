@@ -24,6 +24,7 @@ require (
 )
 
 require (
+	github.com/gorilla/mux v1.8.0
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	gorm.io/driver/postgres v1.2.3
 )
