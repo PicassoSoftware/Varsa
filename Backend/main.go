@@ -23,6 +23,7 @@ func initializeRouter(generalController controllers.GeneralController, customerC
 	r.HandleFunc("/cart/{code}", customerController.DeleteProductFromCart).Methods("Get")
 	r.HandleFunc("/branch", generalController.NewBranch).Methods("Post")
 	r.HandleFunc("/store", generalController.NewStore).Methods("Post")
+	r.HandleFunc("/store/{vkn}", generalController.GetStore).Methods("Get")
 
 	err := http.ListenAndServe(":5001", r)
 

@@ -39,6 +39,10 @@ func (m Posgres) CreateStore(store *model.Store) error {
 	return m.GormDB.Create(store).Error
 }
 
+func (m Posgres) FindStore(store *model.Store, vkn string) error {
+	return m.GormDB.First(&store, "vkn=?", vkn).Error
+}
+
 func (d Posgres) InitialMigration() {
 
 	d.GormDB.AutoMigrate(model.Store{})

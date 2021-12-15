@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"varsa/database"
 	model "varsa/models"
+
+	"github.com/gorilla/mux"
 )
 
 type GeneralController struct {
@@ -28,6 +30,20 @@ func (g *GeneralController) NewStore(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := g.DB.CreateStore(&store); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	if ok := encode(w, &store); !ok {
+		return
+	}
+}
+
+func (g *GeneralController) GetStore(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	var store model.Store
+
+	if err := g.DB.FindStore(&store, params["vkn"]); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
