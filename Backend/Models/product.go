@@ -15,6 +15,5 @@ type Product struct {
 	Photo 				string		`json:"photo"`
 	ExpirationDate   	time.Time	`json:"expirationdate"` 
 	Price   			int			`json:"price"`
-	DetailedInfo 		string			`json:"detailedinfo"`
-
+	DetailedInfo 		string		`json:"detailedinfo"`
 }

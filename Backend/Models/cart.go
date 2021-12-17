@@ -12,5 +12,5 @@ type Cart struct {
 	ProductCount 	int			`json:"productcount"`
 	Deadline        time.Time	`json:"deadline"`
 	Code            string		`json:"code"`
-	Product 		Product 	`json:"product"  gorm:"foreignKey:ProductId;references:ID"`
+	Product 		Product 	`gorm:"foreignKey:ProductId;references:ID"`
 }

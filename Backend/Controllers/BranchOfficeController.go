@@ -33,7 +33,7 @@ func (b *BranchOfficeController) AddProductToStorage(w http.ResponseWriter, r *h
 	product.Photo = posted_product.Photo
 	product.ExpirationDate = posted_product.ExpirationDate
 	product.Price = posted_product.Price
-	product.DetailedInfo = 123
+	product.DetailedInfo = posted_product.DetailedInfo
 	storage_data.VKN = posted_product.VKN
 	storage_data.BranchNo = posted_product.BranchNo
 	storage_data.ProductCount = posted_product.ProductCount

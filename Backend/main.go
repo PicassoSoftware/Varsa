@@ -13,17 +13,17 @@ func initializeRouter(generalController controllers.GeneralController, customerC
 	r := mux.NewRouter()
 	println("Router çalıştı")
 
-	r.HandleFunc("/storage", branchController.AddProductToStorage).Methods("Post")
-	r.HandleFunc("/storage/{city}/{town}/{district}", customerController.NearbyProducts).Methods("Get")
-	r.HandleFunc("/storage/{product_id}", customerController.GetProduct).Methods("Get")
-	r.HandleFunc("/storage/{vkn}/{branch_no}", branchController.GetBranchProducts).Methods("Get")
-	r.HandleFunc("/cart", customerController.AddProductToCart).Methods("Post")
-	r.HandleFunc("/cart/{udid}", customerController.ReserveProduct).Methods("Get")
-	r.HandleFunc("/cart/{udid}/{is_reserved}", customerController.GetCart).Methods("Get")
-	r.HandleFunc("/cart/{code}", customerController.DeleteProductFromCart).Methods("Get")
-	r.HandleFunc("/branch", generalController.NewBranch).Methods("Post")
-	r.HandleFunc("/store", generalController.NewStore).Methods("Post")
-	r.HandleFunc("/store/{vkn}", generalController.GetStore).Methods("Get")
+	r.HandleFunc("/storage", branchController.AddProductToStorage).Methods("Post") 								//test edildi, çalışıyor
+	r.HandleFunc("/storage/{city}/{town}/{district}", customerController.NearbyProducts).Methods("Get")			// 
+	r.HandleFunc("/storage/{product_id}", customerController.GetProduct).Methods("Get")							//
+	r.HandleFunc("/storage/{vkn}/{branch_no}", branchController.GetBranchProducts).Methods("Get")				//
+	r.HandleFunc("/cart", customerController.AddProductToCart).Methods("Post")									// 
+	r.HandleFunc("/cart/{udid}", customerController.ReserveProduct).Methods("Get")								//
+	r.HandleFunc("/cart/{udid}/{is_reserved}", customerController.GetCart).Methods("Get")						//
+	r.HandleFunc("/cart/{code}", customerController.DeleteProductFromCart).Methods("Get")						//	
+	r.HandleFunc("/branch", generalController.NewBranch).Methods("Post")										//test edildi, çalışıyor
+	r.HandleFunc("/store", generalController.NewStore).Methods("Post")											//test edildi, çalışıyor
+	r.HandleFunc("/store/{vkn}", generalController.GetStore).Methods("Get")										//test edildi, çalışıyor
 
 	err := http.ListenAndServe(":5001", r)
 
@@ -41,7 +41,7 @@ func main() {
 	if err != nil {
 		panic("gg")
 	}
-	posgres.InitialMigration()
+	
 	branchController := controllers.NewBranchOfficeController(posgres)
 	customerController := controllers.NewCustomerController(posgres)
 	generalController := controllers.NewGeneralController(posgres)
