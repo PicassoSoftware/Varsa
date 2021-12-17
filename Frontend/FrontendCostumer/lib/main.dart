@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui/views/store.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,17 +14,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.cyan,
-      ),
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primaryColor: const Color(0xFF157575),
+          backgroundColor: const Color(0xFFEAD7C7)),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -39,19 +40,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Map<int, dynamic>> product_list = [];
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
+  final List<Widget> _widgetOptions = <Widget>[
+    const Text(
       'Konum',
       style: optionStyle,
     ),
-    Text(
-      'Mağaza',
-      style: optionStyle,
-    ),
-    Text(
+    Store(),
+    const Text(
       'Sepet',
       style: optionStyle,
     ),
@@ -66,9 +65,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         extendBody: true,
         appBar: AppBar(
-          title: const Text('Varsa'),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'lib/assets/logo.png',
+                fit: BoxFit.contain,
+                height: 32,
+              ),
+            ],
+          ),
         ),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
@@ -83,10 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             child: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                 Radius.circular(50.0)
-              ),
+            
+              borderRadius: const BorderRadius.all(Radius.circular(50.0)),
               child: BottomNavigationBar(
+                backgroundColor: Theme.of(context).backgroundColor,
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(Icons.map),
@@ -102,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
                 currentIndex: _selectedIndex,
-                selectedItemColor: Colors.amber[78],
+                selectedItemColor: Theme.of(context).primaryColor,
                 onTap: _onItemTapped,
               ),
             )));
