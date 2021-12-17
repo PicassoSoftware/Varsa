@@ -41,6 +41,7 @@ func main() {
 	if err != nil {
 		panic("gg")
 	}
+	posgres.InitialMigration()
 	branchController := controllers.NewBranchOfficeController(posgres)
 	customerController := controllers.NewCustomerController(posgres)
 	generalController := controllers.NewGeneralController(posgres)

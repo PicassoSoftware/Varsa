@@ -7,7 +7,8 @@ import (
 
 func decode(r *http.Request, w http.ResponseWriter, v interface{}) bool {
 	err := json.NewDecoder(r.Body).Decode(v)
-
+	println("decodayım")
+	println(err)
 	if err != nil {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		return false

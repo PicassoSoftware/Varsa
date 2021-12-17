@@ -20,9 +20,24 @@ func NewGeneralController(_DB database.Posgres) GeneralController {
 
 func (g *GeneralController) NewBranch(w http.ResponseWriter, r *http.Request) {
 
+	var branch model.Branchoffice
+
+	if ok := decode(r, w, &branch); !ok {
+		return
+	}
+
+	if err := g.DB.CreateBranch(&branch); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	if ok := encode(w, &branch); !ok {
+		return
+	}
 }
 
 func (g *GeneralController) NewStore(w http.ResponseWriter, r *http.Request) {
+
 	var store model.Store
 
 	if ok := decode(r, w, &store); !ok {
