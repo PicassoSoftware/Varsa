@@ -13,7 +13,7 @@ class Store extends StatelessWidget {
       child: Text(
         "Can't find any item :(",
         style: TextStyle(
-          color: Const.primaryColor,
+          color: kPrimaryColor,
         ),
       ),
     );

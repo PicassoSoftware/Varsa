@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui/views/cart.dart';
 import 'package:ui/views/store.dart';
 import 'assets/const.dart';
 
@@ -41,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       style: optionStyle,
     ),
     Store(),
-    Card(),
+    const Cart(),
   ];
 
   void _onItemTapped(int index) {
@@ -53,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Const.backgroundColor,
+      backgroundColor: kBackgroundColor,
       extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -62,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              Const.logoPath,
+              kLogoPath,
               fit: BoxFit.contain,
               height: 32,
             ),
@@ -83,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(50.0)),
           child: BottomNavigationBar(
-            backgroundColor: Const.backgroundColor,
+            backgroundColor: kBackgroundColor,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.map),
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Const.primaryColor,
+            selectedItemColor: kPrimaryColor,
             onTap: _onItemTapped,
           ),
         ),

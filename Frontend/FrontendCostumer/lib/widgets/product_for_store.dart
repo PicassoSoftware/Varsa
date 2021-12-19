@@ -12,7 +12,7 @@ class ProductForStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         elevation: 5,
-        color: Const.backgroundColor,
+        color: kBackgroundColor,
         child: Container(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -28,7 +28,7 @@ class ProductForStore extends StatelessWidget {
                   Text(
                     "Süt ",
                     style: TextStyle(
-                        color: Const.primaryColor,
+                        color: kPrimaryColor,
                         fontSize: 20,
                         fontFamily: "Lato"),
                   ),
@@ -41,7 +41,7 @@ class ProductForStore extends StatelessWidget {
                   Text(
                     "Stock: 15",
                     style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
+                      color: kSecondaryColor,
                       fontSize: 14,
                     ),
                   ),
@@ -56,7 +56,7 @@ class ProductForStore extends StatelessWidget {
                     text: TextSpan(
                       style: TextStyle(
                         fontSize: 14.0,
-                        color: Const.primaryColor,
+                        color: kPrimaryColor,
                       ),
                       children: const <TextSpan>[
                         TextSpan(text: 'Son '),
@@ -72,7 +72,7 @@ class ProductForStore extends StatelessWidget {
                   Text(
                     "10₺",
                     style: TextStyle(
-                      color: Const.primaryColor,
+                      color: kPrimaryColor,
                       fontSize: 26,
                     ),
                   ),
