@@ -14,17 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primaryColor: const Color(0xFF157575),
-          backgroundColor: const Color(0xFFEAD7C7)),
+        primaryColor: const Color(0xFF157575),
+        backgroundColor: const Color(0xFFEAD7C7),
+        secondaryHeaderColor: const Color(0x77157575)
+      ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -50,10 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       style: optionStyle,
     ),
     Store(),
-    const Text(
-      'Sepet',
-      style: optionStyle,
-    ),
+    Card(),
   ];
 
   void _onItemTapped(int index) {
@@ -94,7 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             child: ClipRRect(
-            
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
               child: BottomNavigationBar(
                 backgroundColor: Theme.of(context).backgroundColor,
