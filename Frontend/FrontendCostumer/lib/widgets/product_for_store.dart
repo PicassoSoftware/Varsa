@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:ui/assets/const.dart';
 
 class ProductForStore extends StatelessWidget {
   final int index = 0;
@@ -12,7 +12,7 @@ class ProductForStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         elevation: 5,
-        color: Theme.of(context).backgroundColor,
+        color: Const.backgroundColor,
         child: Container(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -28,7 +28,7 @@ class ProductForStore extends StatelessWidget {
                   Text(
                     "Süt ",
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Const.primaryColor,
                         fontSize: 20,
                         fontFamily: "Lato"),
                   ),
@@ -56,7 +56,7 @@ class ProductForStore extends StatelessWidget {
                     text: TextSpan(
                       style: TextStyle(
                         fontSize: 14.0,
-                        color: Theme.of(context).primaryColor,
+                        color: Const.primaryColor,
                       ),
                       children: const <TextSpan>[
                         TextSpan(text: 'Son '),
@@ -72,7 +72,7 @@ class ProductForStore extends StatelessWidget {
                   Text(
                     "10₺",
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: Const.primaryColor,
                       fontSize: 26,
                     ),
                   ),

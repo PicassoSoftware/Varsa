@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui/assets/const.dart';
 import '../widgets/product_for_store.dart';
 
 class Store extends StatelessWidget {
@@ -12,7 +13,7 @@ class Store extends StatelessWidget {
       child: Text(
         "Can't find any item :(",
         style: TextStyle(
-          color: Theme.of(context).primaryColor,
+          color: Const.primaryColor,
         ),
       ),
     );
