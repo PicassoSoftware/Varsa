@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ui/assets/const.dart';
+import '../widgets/product_for_store.dart';
 
 class Store extends StatelessWidget {
   final List<Map<int, dynamic>> product_list;
@@ -11,7 +13,7 @@ class Store extends StatelessWidget {
       child: Text(
         "Can't find any item :(",
         style: TextStyle(
-          color: Theme.of(context).primaryColor,
+          color: kPrimaryColor,
         ),
       ),
     );
@@ -19,16 +21,11 @@ class Store extends StatelessWidget {
       products = GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
+            childAspectRatio: 0.7,
           ),
           itemCount: 300,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 500,
-              child: Card(
-                color: Theme.of(context).primaryColor,
-                child: Center(child: Text('$index')),
-              ),
-            );
+            return SizedBox(child: ProductForStore(index));
           });
     }
 
