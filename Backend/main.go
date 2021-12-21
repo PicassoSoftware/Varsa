@@ -24,6 +24,8 @@ func initializeRouter(generalController controllers.GeneralController, customerC
 	r.HandleFunc("/branch", generalController.NewBranch).Methods("Post")										//test edildi, çalışıyor
 	r.HandleFunc("/store", generalController.NewStore).Methods("Post")											//test edildi, çalışıyor
 	r.HandleFunc("/store/{vkn}", generalController.GetStore).Methods("Get")										//test edildi, çalışıyor
+	r.HandleFunc("/product/{id}", customerController.GetProductInfo).Methods("Get")								//test edildi,çalışıyor
+
 
 	err := http.ListenAndServe(":5001", r)
 

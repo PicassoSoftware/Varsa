@@ -2,10 +2,13 @@ package controller
 
 import (
 	//mapper "github.com/PeteProgrammer/go-automapper"
+	"strconv"
 	"net/http"
 	"varsa/database"
 	dto "varsa/dtos"
 	model "varsa/models"
+
+	"github.com/gorilla/mux"
 )
 
 type BranchOfficeController struct {
@@ -49,4 +52,26 @@ func (b *BranchOfficeController) AddProductToStorage(w http.ResponseWriter, r *h
 
 func (b *BranchOfficeController) GetBranchProducts(w http.ResponseWriter, r *http.Request) {
 
+    params := mux.Vars(r)
+	var storage_datas[] model.Storage
+
+    if err := b.DB.FindBranchProduct(&storage_datas, params["vkn"],params["branch_no"]); err != nil {
+        w.WriteHeader(http.StatusInternalServerError)
+        return
+    }
+	
+    var product = make([]model.Product, len(storage_datas)) 
+	
+	println("storagede hata yok")
+	for i, s := range storage_datas {
+		if err := b.DB.FindProductInfo(&product[i],strconv.Itoa(s.ProductId) ); err != nil {
+			println("hata")
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+	}
+
+    if ok := encode(w, &product); !ok {
+        return
+    }
 }
