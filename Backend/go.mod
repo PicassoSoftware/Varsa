@@ -24,7 +24,6 @@ require (
 )
 
 require (
-	github.com/PeteProgrammer/go-automapper v0.0.0-20200419053654-7c63d5bb0eb4
 	github.com/gorilla/mux v1.8.0
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	gorm.io/driver/postgres v1.2.3

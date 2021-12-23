@@ -40,12 +40,11 @@ func (m Posgres) CreateStore(store *model.Store) error {
 	return m.GormDB.Create(store).Error
 }
 
+func (m Posgres) AddProductToStore(storage_data *model.Storage, product *model.Product) error {
 
-func (m Posgres) AddProductToStore(storage_data *model.Storage,product *model.Product) error {
-	
 	err := m.GormDB.Create(product).Error
 
-	if (err != nil ) {
+	if err != nil {
 		println(product)
 		println("product eklenirken sorun oluştu")
 		return err
@@ -53,8 +52,8 @@ func (m Posgres) AddProductToStore(storage_data *model.Storage,product *model.Pr
 
 	storage_data.ProductId = product.ID
 
-	err =  m.GormDB.Create(storage_data).Error
-	if (err != nil){
+	err = m.GormDB.Create(storage_data).Error
+	if err != nil {
 		println("storage data eklenirken sorun oldu")
 	}
 	return err
@@ -66,6 +65,30 @@ func (m Posgres) CreateBranch(branch *model.Branchoffice) error {
 
 func (m Posgres) FindStore(store *model.Store, vkn string) error {
 	return m.GormDB.First(&store, "vkn=?", vkn).Error
+}
+
+func (m Posgres) FindBranchProduct(storage_datas *[]model.Storage, vkn string, branch_no string) error {
+	return m.GormDB.Find(&storage_datas, "vkn=?", vkn, "branch_no=?", branch_no).Error
+}
+
+func (m Posgres) FindCartDatas(cart_datas *[]model.Cart, udid string, is_reserved string) error {
+	var code_exist string
+
+	if is_reserved == "0" {
+		code_exist = "code is NOT NULL "
+	} else {
+		code_exist = "code is NULL"
+	}
+
+	return m.GormDB.Where(code_exist).Find(&cart_datas, "ud_id=?", udid).Error
+}
+
+func (m Posgres) FindProductInfo(product *model.Product, id string) error {
+	return m.GormDB.First(&product, "id=?", id).Error
+}
+
+func (m Posgres) CreateCart(cart *model.Cart) error {
+	return m.GormDB.Create(&cart).Error
 }
 
 func (d Posgres) InitialMigration() {
