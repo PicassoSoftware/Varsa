@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui/views/cart.dart';
 import 'package:ui/views/store.dart';
+import 'package:ui/widgets/filter_drawer.dart';
 import 'assets/const.dart';
 
 void main() {
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -29,7 +31,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Map<int, dynamic>> product_list = [];
+  
+  Map<String, String> lokasyon = {
+    "city": "Trabzon",
+    "town": "Ortahisar",
+    "district": "Konaklar"
+  };
 
   int _selectedIndex = 0;
 
@@ -42,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
       style: optionStyle,
     ),
     Store(),
-    const Cart(),
+    Cart(),
   ];
 
   void _onItemTapped(int index) {
@@ -56,7 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       extendBody: true,
+      endDrawer: FilterDrawer(),
       appBar: AppBar(
+        actions: <Widget>[Container()],
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Row(
