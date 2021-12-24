@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:ui/assets/const.dart';
 import 'package:ui/views/product_details.dart';
@@ -7,14 +5,15 @@ import 'package:ui/views/product_details.dart';
 class ProductForStore extends StatelessWidget {
   final int index = 0;
 
-  ProductForStore(index);
+  // ignore: use_key_in_widget_constructors
+  const ProductForStore(index);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ProductDetails()),
+        MaterialPageRoute(builder: (context) => const Counter()),
       ),
       child: Card(
           elevation: 5,
@@ -54,7 +53,7 @@ class ProductForStore extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
