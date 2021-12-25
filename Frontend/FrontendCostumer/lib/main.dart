@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/views/cart.dart';
+import 'package:ui/views/location.dart';
 import 'package:ui/views/store.dart';
 import 'package:ui/widgets/filter_drawer.dart';
 import 'assets/const.dart';
@@ -44,10 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   final List<Widget> _widgetOptions = <Widget>[
-    const Text(
-      'Konum',
-      style: optionStyle,
-    ),
+    Location(),
     Store(),
     Cart(),
   ];

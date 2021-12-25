@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/assets/const.dart';
+import 'package:ui/views/cart.dart';
 
 class Counter extends StatefulWidget {
   const Counter({Key? key}) : super(key: key);
@@ -73,7 +74,6 @@ class ProductDetails extends State<Counter> {
                       child: Text(
                         "Içindekiler: Besin Degerleri:100 gr.1 Su Bardagı (200 ml lik)Karbonhidrat (g)5.4310.86 Protein (g)2.935.86 Yag (g)1.53 Lif (g)00 Kolesterol (mg)612 Sodyum (mg)51102 Potasyum (mg)159318 Kalsiyum (mg)111222 Vitamin A (iu)2244 Vitamin C (mg)12 Demir (mg)0.010.02",
                         style: TextStyle(
-                            
                             color: Color(0xFF157575),
                             fontSize: 15,
                             fontFamily: "Lato"),
@@ -106,7 +106,7 @@ class ProductDetails extends State<Counter> {
                     "10₺",
                     style: TextStyle(
                       color: kPrimaryColor,
-                      fontSize:40,
+                      fontSize: 40,
                     ),
                   ),
                 ],
@@ -131,13 +131,17 @@ class ProductDetails extends State<Counter> {
                   ),
                 ],
               ),
-               FloatingActionButton.extended(
-                 
-                  onPressed: () {},
-                  label: const Text('ADD'),
-                  icon: const Icon(Icons.shopping_cart_outlined),
-                  backgroundColor: kPrimaryColor,
-                ),
+              FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Cart()),
+                  );
+                },
+                label: const Text('ADD'),
+                icon: const Icon(Icons.shopping_cart_outlined),
+                backgroundColor: kPrimaryColor,
+              ),
             ],
           ),
         ),
