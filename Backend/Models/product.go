@@ -11,7 +11,7 @@ type Product struct {
 	gorm.Model
 	ID  				int			`json:"id" gorm:"primaryKey"`
 	Name 				string		`json:"name"`	
-	Stock	 			int			`json:"stock"`
+	AvailableStock	 	int			`json:"stock"`
 	Photo 				string		`json:"photo"`
 	ExpirationDate   	time.Time	`json:"expirationdate"` 
 	Price   			int			`json:"price"`

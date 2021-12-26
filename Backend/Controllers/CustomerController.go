@@ -1,8 +1,10 @@
 package controller
 
 import (
+	"time"
     "net/http"
     "varsa/database"
+    dto "varsa/dtos"
     model "varsa/models"
     "strconv"
     "github.com/gorilla/mux"
@@ -27,6 +29,9 @@ func (c *CustomerController) NearbyProducts(w http.ResponseWriter, r *http.Reque
         return
     }
     
+
+   
+
     var branch_datas[] model.Storage 
     var all_datas[] model.Storage
 
@@ -41,15 +46,27 @@ func (c *CustomerController) NearbyProducts(w http.ResponseWriter, r *http.Reque
 
     }
     var product = make([]model.Product, len(all_datas)) 
+    var product_for_card = make([]dto.ProductForCard, len(all_datas)) 
+
     for i, s := range all_datas {
-        if err := c.DB.FindProductInfo(&product[i],strconv.Itoa(s.ProductId) ); err != nil {
+        if err := c.DB.FindProductInfo(&product[i] ,strconv.Itoa(s.ProductId) ); err != nil {
             println("hata")
             w.WriteHeader(http.StatusInternalServerError)
             return
         }
     }
 
-    if ok := encode(w, &product); !ok {
+    for i, s := range product {
+        product_for_card[i].ID = s.ID
+        product_for_card[i].Name = s.Name
+        product_for_card[i].Stock = s.AvailableStock
+        product_for_card[i].Photo = s.Photo
+        product_for_card[i].Days_For_Expiration = int(s.ExpirationDate.Sub(time.Now()) / time.Hour) / 24
+        product_for_card[i].Price = s.Price
+    }
+
+
+    if ok := encode(w, &product_for_card); !ok {
         return
     }
 
