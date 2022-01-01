@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui/views/cart.dart';
-import 'package:ui/views/location.dart';
 import 'package:ui/views/store.dart';
 import 'package:ui/widgets/filter_drawer.dart';
 import 'assets/const.dart';
@@ -32,27 +31,130 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
+  List<Map<String, dynamic>> selected_product_list = [];
+  List<Map<String, dynamic>> product_list = [];
+  List<Widget> _widgetOptions = <Widget>[Container(), Container(), Container()];
+  int _selectedIndex = 0;
+
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  @override
+  void initState() {
+    _selectedIndex = 0;
+    selected_product_list = [
+      {
+        "id": 0,
+        "name": "süt",
+        "stock": 15,
+        "photo": "lib/assets/milk.jpg",
+        "price": 10,
+        "days_for_expiration": 5
+      },
+      {
+        "id": 1,
+        "name": "Kola",
+        "stock": 5,
+        "photo": "lib/assets/kola.jpg",
+        "price": 4,
+        "days_for_expiration": 2
+      },
+      {
+        "id": 2,
+        "name": "Yoğurt",
+        "stock": 25,
+        "photo": "lib/assets/yogurt.jpg",
+        "price": 12,
+        "days_for_expiration": 12
+      },
+      {
+        "id": 3,
+        "name": "Ekmek",
+        "stock": 20,
+        "photo": "lib/assets/ekmek.jpg",
+        "price": 3,
+        "days_for_expiration": 1
+      },
+      {
+        "id": 4,
+        "name": "Nutella",
+        "stock": 5,
+        "photo": "lib/assets/nutella.jpg",
+        "price": 18,
+        "days_for_expiration": 7
+      },
+    ];
+    product_list = [
+      {
+        "id": 0,
+        "name": "süt",
+        "stock": 15,
+        "photo": "lib/assets/milk.jpg",
+        "price": 10,
+        "days_for_expiration": 5
+      },
+      {
+        "id": 1,
+        "name": "Kola",
+        "stock": 5,
+        "photo": "lib/assets/kola.jpg",
+        "price": 4,
+        "days_for_expiration": 5
+      },
+      {
+        "id": 2,
+        "name": "Yoğurt",
+        "stock": 25,
+        "photo": "lib/assets/yogurt.jpg",
+        "price": 12,
+        "days_for_expiration": 12
+      },
+      {
+        "id": 3,
+        "name": "Ekmek",
+        "stock": 20,
+        "photo": "lib/assets/ekmek.jpg",
+        "price": 3,
+        "days_for_expiration": 1
+      },
+      {
+        "id": 4,
+        "name": "Nutella",
+        "stock": 5,
+        "photo": "lib/assets/nutella.jpg",
+        "price": 18,
+        "days_for_expiration": 7
+      },
+    ];
+    _widgetOptions = <Widget>[
+      const Text(
+        'Konum',
+        style: optionStyle,
+      ),
+      Store(_onItemTapped, selected_product_list, product_list),
+      const Cart(),
+    ];
+  }
+
   Map<String, String> lokasyon = {
     "city": "Trabzon",
     "town": "Ortahisar",
     "district": "Konaklar"
   };
 
-  int _selectedIndex = 0;
-
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  final List<Widget> _widgetOptions = <Widget>[
-    Location(),
-    Store(),
-    Cart(),
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      print(_selectedIndex);
+    });
+  }
+
+  void _updateSelectedProduct(List<Map<String, dynamic>> updated_product_list) {
+    setState(() {
+      print("_updateSelectedProduct");
+      selected_product_list = updated_product_list;
+      print(selected_product_list);
+      _selectedIndex = 1;
     });
   }
 
@@ -61,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       extendBody: true,
-      endDrawer: FilterDrawer(),
+      endDrawer: FilterDrawer(_updateSelectedProduct, product_list),
       appBar: AppBar(
         actions: <Widget>[Container()],
         backgroundColor: Colors.transparent,

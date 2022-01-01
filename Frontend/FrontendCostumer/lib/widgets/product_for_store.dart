@@ -6,15 +6,16 @@ import 'package:ui/views/product_details.dart';
 
 class ProductForStore extends StatelessWidget {
   Map<String, dynamic> product = {};
+  Function changePage;
 
-  ProductForStore(this.product, {Key? key}) : super(key: key);
+  ProductForStore(this.changePage,this.product, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const Counter()),
+        MaterialPageRoute(builder: (context) => Counter(changePage)),
       ),
       child: Scaffold(
         backgroundColor: kBackgroundColor,
