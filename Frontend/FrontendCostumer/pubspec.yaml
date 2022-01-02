@@ -35,6 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   country_state_city_picker: ^1.2.8
   country_state_city_pro: ^0.0.3
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:

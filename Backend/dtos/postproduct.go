@@ -13,7 +13,7 @@ type PostProduct struct {
 	Stock	 			int			`json:"stock"`
 	Photo 				string		`json:"photo"`
 	ExpirationDate   	time.Time	`json:"expirationdate"` 
-	Price   			int			`json:"price"`
+	Price   			float32		`json:"price"`
 	DetailedInfo 		string		`json:"detailedinfo"`
 	VKN          		string		`json:"vkn"`		
 	BranchNo     		int			`json:"branchno"`

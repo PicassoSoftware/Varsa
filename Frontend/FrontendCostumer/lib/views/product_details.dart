@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:ui/assets/const.dart';
 import 'package:ui/views/cart.dart';
 
-class Counter extends StatefulWidget {
+class ProductDetails extends StatefulWidget {
   Function changePage;
-  Counter(this.changePage, {Key? key}) : super(key: key);
+  int id;
+
+  ProductDetails(this.changePage, this.id, {Key? key}) : super(key: key);
 
   @override
-  ProductDetails createState() => ProductDetails();
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _ProductDetailsState();
+  }
 }
 
-class ProductDetails extends State<Counter> {
+class _ProductDetailsState extends State<ProductDetails> {
   int _n = 0;
   void add() {
     setState(() {

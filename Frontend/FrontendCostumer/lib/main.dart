@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ui/views/cart.dart';
+import 'package:ui/views/location.dart';
 import 'package:ui/views/store.dart';
 import 'package:ui/widgets/filter_drawer.dart';
 import 'assets/const.dart';
+import 'models/productforcardmodel.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Varsa'),
     );
   }
 }
@@ -35,104 +40,45 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Map<String, dynamic>> product_list = [];
   List<Widget> _widgetOptions = <Widget>[Container(), Container(), Container()];
   int _selectedIndex = 0;
+  String city = "istanbul", town = "ümraniye", district = "namık kemal";
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  List<Product> parseProducts(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Product>((json) => Product.fromMap(json)).toList();
+  }
+
+  Future<List<Product>> fetchProducts() async {
+    dynamic response = [];
+    response = await http
+        .get(Uri.parse('http://10.0.2.2:5001/storage/$city/$town/$district'));
+    if (response.statusCode == 200) {
+      return parseProducts(response.body);
+    } else {
+      throw Exception('Unable to fetch products from the REST API');
+    }
+  }
+
   @override
   void initState() {
+    city = "istanbul";
+    town = "ümraniye";
+    district = "namık kemal";
     _selectedIndex = 0;
-    selected_product_list = [
-      {
-        "id": 0,
-        "name": "süt",
-        "stock": 15,
-        "photo": "lib/assets/milk.jpg",
-        "price": 10,
-        "days_for_expiration": 5
-      },
-      {
-        "id": 1,
-        "name": "Kola",
-        "stock": 5,
-        "photo": "lib/assets/kola.jpg",
-        "price": 4,
-        "days_for_expiration": 2
-      },
-      {
-        "id": 2,
-        "name": "Yoğurt",
-        "stock": 25,
-        "photo": "lib/assets/yogurt.jpg",
-        "price": 12,
-        "days_for_expiration": 12
-      },
-      {
-        "id": 3,
-        "name": "Ekmek",
-        "stock": 20,
-        "photo": "lib/assets/ekmek.jpg",
-        "price": 3,
-        "days_for_expiration": 1
-      },
-      {
-        "id": 4,
-        "name": "Nutella",
-        "stock": 5,
-        "photo": "lib/assets/nutella.jpg",
-        "price": 18,
-        "days_for_expiration": 7
-      },
-    ];
-    product_list = [
-      {
-        "id": 0,
-        "name": "süt",
-        "stock": 15,
-        "photo": "lib/assets/milk.jpg",
-        "price": 10,
-        "days_for_expiration": 5
-      },
-      {
-        "id": 1,
-        "name": "Kola",
-        "stock": 5,
-        "photo": "lib/assets/kola.jpg",
-        "price": 4,
-        "days_for_expiration": 5
-      },
-      {
-        "id": 2,
-        "name": "Yoğurt",
-        "stock": 25,
-        "photo": "lib/assets/yogurt.jpg",
-        "price": 12,
-        "days_for_expiration": 12
-      },
-      {
-        "id": 3,
-        "name": "Ekmek",
-        "stock": 20,
-        "photo": "lib/assets/ekmek.jpg",
-        "price": 3,
-        "days_for_expiration": 1
-      },
-      {
-        "id": 4,
-        "name": "Nutella",
-        "stock": 5,
-        "photo": "lib/assets/nutella.jpg",
-        "price": 18,
-        "days_for_expiration": 7
-      },
-    ];
     _widgetOptions = <Widget>[
-      const Text(
-        'Konum',
-        style: optionStyle,
-      ),
-      Store(_onItemTapped, selected_product_list, product_list),
-      const Cart(),
+      Location(_changeLocation, _onItemTapped),
+      FutureBuilder<List<Product>>(
+          future: fetchProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+            return snapshot.hasData
+                ? Store(city, town, district, _onItemTapped, snapshot.data!,
+                    snapshot.data!)
+                : Store(city, town, district, _onItemTapped, [], []);
+          }),
+      Cart(fetchProducts()),
     ];
   }
 
@@ -146,6 +92,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedIndex = index;
       print(_selectedIndex);
+    });
+  }
+
+  void _changeLocation(String gCity, String gTown, String gDistrict) {
+    setState(() {
+      city = gCity;
+      town = gTown;
+      district = gDistrict;
     });
   }
 
