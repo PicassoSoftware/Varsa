@@ -36,8 +36,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Map<String, dynamic>> selected_product_list = [];
-  List<Map<String, dynamic>> product_list = [];
+  late Future<List<Product>> selected_product_list;
+  late Future<List<Product>> product_list;
   List<Widget> _widgetOptions = <Widget>[Container(), Container(), Container()];
   int _selectedIndex = 0;
   String city = "istanbul", town = "ümraniye", district = "namık kemal";
@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<Product>> fetchProducts() async {
     dynamic response = [];
+    print("fetch içi: " + city);
     response = await http
         .get(Uri.parse('http://10.0.2.2:5001/storage/$city/$town/$district'));
     if (response.statusCode == 200) {
@@ -66,7 +67,12 @@ class _MyHomePageState extends State<MyHomePage> {
     city = "istanbul";
     town = "ümraniye";
     district = "namık kemal";
+    fetchProducts();
+
     _selectedIndex = 0;
+
+   // product_list = fetchProducts();
+
     _widgetOptions = <Widget>[
       Location(_changeLocation, _onItemTapped),
       FutureBuilder<List<Product>>(
@@ -82,12 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  Map<String, String> lokasyon = {
-    "city": "Trabzon",
-    "town": "Ortahisar",
-    "district": "Konaklar"
-  };
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -100,24 +100,26 @@ class _MyHomePageState extends State<MyHomePage> {
       city = gCity;
       town = gTown;
       district = gDistrict;
+      product_list = fetchProducts();
+      print(city + town + district);
     });
   }
 
-  void _updateSelectedProduct(List<Map<String, dynamic>> updated_product_list) {
-    setState(() {
-      print("_updateSelectedProduct");
-      selected_product_list = updated_product_list;
-      print(selected_product_list);
-      _selectedIndex = 1;
-    });
-  }
+  // void _updateSelectedProduct(List<Map<String, dynamic>> updated_product_list) {
+  //   setState(() {
+  //     print("_updateSelectedProduct");
+  //     selected_product_list = updated_product_list;
+  //     print(selected_product_list);
+  //     _selectedIndex = 1;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       extendBody: true,
-      endDrawer: FilterDrawer(_updateSelectedProduct, product_list),
+      //endDrawer: FilterDrawer(_updateSelectedProduct, product_list),
       appBar: AppBar(
         actions: <Widget>[Container()],
         backgroundColor: Colors.transparent,
