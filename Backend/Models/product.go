@@ -14,6 +14,6 @@ type Product struct {
 	AvailableStock	 	int			`json:"stock"`
 	Photo 				string		`json:"photo"`
 	ExpirationDate   	time.Time	`json:"expirationdate"` 
-	Price   			int			`json:"price"`
+	Price   			float32		`json:"price"`
 	DetailedInfo 		string		`json:"detailedinfo"`
 }

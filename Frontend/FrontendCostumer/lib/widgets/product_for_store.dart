@@ -2,19 +2,21 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ui/assets/const.dart';
+import 'package:ui/models/productforcardmodel.dart';
 import 'package:ui/views/product_details.dart';
 
 class ProductForStore extends StatelessWidget {
-  Map<String, dynamic> product = {};
+  Product product;
+  Function changePage;
 
-  ProductForStore(this.product, {Key? key}) : super(key: key);
+  ProductForStore(this.changePage,this.product, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const Counter()),
+        MaterialPageRoute(builder: (context) => ProductDetails(changePage, product.id)),
       ),
       child: Scaffold(
         backgroundColor: kBackgroundColor,
@@ -31,7 +33,7 @@ class ProductForStore extends StatelessWidget {
                       width: MediaQuery.of(context).size.width / 2.5,
                       child: FittedBox(
                         fit: BoxFit.fill,
-                        child: Image.asset(product["photo"]),
+                        child: Image.network("https://media.istockphoto.com/photos/blue-and-white-milk-box-picture-id489986642"),
                       ),
                     ),
                     const SizedBox(
@@ -42,7 +44,7 @@ class ProductForStore extends StatelessWidget {
                       //textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          product["name"],
+                          product.name,
                           style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 20,
@@ -55,7 +57,7 @@ class ProductForStore extends StatelessWidget {
                       //textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          "Stock:${product['stock']}",
+                          "Stock:${product.stock}",
                           style: TextStyle(
                             color: kSecondaryColor,
                             fontSize: 14,
@@ -77,7 +79,7 @@ class ProductForStore extends StatelessWidget {
                             children: <TextSpan>[
                               const TextSpan(text: 'Son '),
                               TextSpan(
-                                text: product["days_for_expiration"].toString(),
+                                text: product.daysForExpiration.toString(),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.red),
@@ -87,7 +89,7 @@ class ProductForStore extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "${product['price']}₺",
+                          "${product.price}₺",
                           style: TextStyle(
                             color: kPrimaryColor,
                             fontSize: 26,

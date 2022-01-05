@@ -11,4 +11,5 @@ type Store struct {
 	Password          string		`json:"password"`
 	City              string		`json:"city"`
 	TaxAdministration string		`json:"taxadmin"`
+	BranchName 		  string		`json:"branchname"`
 }
