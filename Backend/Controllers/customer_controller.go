@@ -117,12 +117,17 @@ func (c *CustomerController) GetCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    print( len(cart_datas))
+
+
 	var post_reserve = make([]dto.PostReserve, len(cart_datas))
+	var pr = make([]model.Product, len(cart_datas))
 
     for i, s := range cart_datas {
+
+		c.DB.FindProductInfo(&pr[i], strconv.Itoa(s.ProductId))
+
 		post_reserve[i].ProductId = s.ProductId
-		post_reserve[i].Photo = s.Product.Photo
+		post_reserve[i].Photo = pr[i].Photo
 		post_reserve[i].Code = s.Code
 		post_reserve[i].LastDate = int(s.Deadline.Sub(time.Now())/time.Second)/60
     }
@@ -130,7 +135,6 @@ func (c *CustomerController) GetCart(w http.ResponseWriter, r *http.Request) {
 	if ok := encode(w, &post_reserve); !ok {
 		return
 	}
-	println("bitti...")
 }
 func (c *CustomerController) DeleteProductFromCart(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
