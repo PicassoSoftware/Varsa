@@ -111,12 +111,23 @@ func (c *CustomerController) ReserveProduct(w http.ResponseWriter, r *http.Reque
 func (c *CustomerController) GetCart(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var cart_datas []model.Cart
+
 	if err := c.DB.FindCartDatas(&cart_datas, params["udid"], params["is_reserved"]); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	if ok := encode(w, &cart_datas); !ok {
+    print( len(cart_datas))
+	var post_reserve = make([]dto.PostReserve, len(cart_datas))
+
+    for i, s := range cart_datas {
+		post_reserve[i].ProductId = s.ProductId
+		post_reserve[i].Photo = s.Product.Photo
+		post_reserve[i].Code = s.Code
+		post_reserve[i].LastDate = int(s.Deadline.Sub(time.Now())/time.Second)/60
+    }
+        
+	if ok := encode(w, &post_reserve); !ok {
 		return
 	}
 	println("bitti...")
