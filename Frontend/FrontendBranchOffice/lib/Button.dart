@@ -1,23 +1,44 @@
+import 'package:FrontendBranchOffice/views/product_add.dart';
+import 'package:FrontendBranchOffice/views/rezervation.dart';
+import 'package:FrontendBranchOffice/views/seller_profile.dart';
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget{
+class Button extends StatelessWidget {
+  const Button({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-
-    return Container(
-      height: 50,
-      margin: EdgeInsets.symmetric(horizontal: 50),
-      decoration: BoxDecoration(
-        color: Colors.teal.shade200,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text("Login",style: TextStyle(
-          color: Color(0xFF157575),
-          fontSize: 15,
-          fontWeight: FontWeight.bold
-        ),),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => (SelectImage())),
+            );
+          },
+          icon: const Icon(Icons.forward_sharp),
+          backgroundColor: const Color(0xFF157575),
+          label: const Text("Giris"),
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => (const Rezervation())),
+            );
+          },
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => (const Grade())),
+            );
+          },
+        ),
+      ],
     );
   }
 }
