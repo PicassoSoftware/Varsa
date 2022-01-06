@@ -17,21 +17,6 @@ class _RezervationState extends State<Rezervation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[Container()],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              kLogoPath,
-              fit: BoxFit.contain,
-              height: 32,
-            ),
-          ],
-        ),
-      ),
       backgroundColor: kBackgroundColor ,
       body: Column(
         children: <Widget>[
