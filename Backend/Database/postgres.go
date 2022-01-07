@@ -92,6 +92,10 @@ func (m Posgres) FindProductInfo(product *model.Product, id string) error {
 	return m.GormDB.First(&product, "id=?", id).Error
 }
 
+func (m Posgres) FindProductByCode(cart *[]model.Cart, code string) error {
+	return m.GormDB.Find(&cart, "code=?", code).Error
+}
+
 func (m Posgres) CreateCart(cart *model.Cart) error {
 	return m.GormDB.Create(&cart).Error
 }
@@ -104,9 +108,9 @@ func (m Posgres) ReserveProduct(udid string) error {
 
 	for _, s := range cart {
 		print(s.ProductId)
-		m.GormDB.Model(model.Cart{}).Where("product_id=?", s.ProductId).Updates(model.Cart{Deadline: time.Now().Add(time.Hour), Code: strconv.Itoa((rand.Intn(89999) + 10000))})
-		m.GormDB.Model(&s.Product).Update("availablestock", gorm.Expr("availablestock + ?",&s.ProductCount))
+		m.GormDB.Model(model.Cart{}).Where("product_id=?", s.ProductId).Updates(model.Cart{Deadline: time.Now().Add(time.Hour / 2), Code: strconv.Itoa((rand.Intn(89999) + 10000))})
 	}
+	
 	return nil
 }
 

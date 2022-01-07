@@ -117,32 +117,80 @@ func (c *CustomerController) GetCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-
-	var post_reserve = make([]dto.PostReserve, len(cart_datas))
 	var pr = make([]model.Product, len(cart_datas))
 
-    for i, s := range cart_datas {
+	
+	if params["is_reserved"] == "0" {
+		var post_cart = make([]dto.PostCart, len(cart_datas))
 
-		c.DB.FindProductInfo(&pr[i], strconv.Itoa(s.ProductId))
+		for i, s := range cart_datas {
 
-		post_reserve[i].ProductId = s.ProductId
-		post_reserve[i].Photo = pr[i].Photo
-		post_reserve[i].Code = s.Code
-		post_reserve[i].LastDate = int(s.Deadline.Sub(time.Now())/time.Second)/60
-    }
-        
-	if ok := encode(w, &post_reserve); !ok {
-		return
+			c.DB.FindProductInfo(&pr[i], strconv.Itoa(s.ProductId))
+
+			post_cart[i].ProductId = s.ProductId
+			post_cart[i].Photo = pr[i].Photo
+			post_cart[i].Name = pr[i].Name
+			post_cart[i].Price = pr[i].Price * float32(s.ProductCount)
+		}
+
+		if ok := encode(w, &post_cart); !ok {
+			return
+		}
+	} else {
+		var post_reserve = make([]dto.PostReserve, len(cart_datas))
+
+		for i, s := range cart_datas {
+
+			c.DB.FindProductInfo(&pr[i], strconv.Itoa(s.ProductId))
+
+			post_reserve[i].ProductId = s.ProductId
+			post_reserve[i].Photo = pr[i].Photo
+			post_reserve[i].Code = s.Code
+			post_reserve[i].LastDate = int(s.Deadline.Sub(time.Now())/time.Second) / 60
+		}
+
+		if ok := encode(w, &post_reserve); !ok {
+			return
+		}
 	}
+
 }
 func (c *CustomerController) DeleteProductFromCart(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
+	var cart_data []model.Cart
+
+
+
+
+	if err := c.DB.FindProductByCode(&cart_data, params["code"]); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+
+	var pr = make([]model.Product, len(cart_data))
+	var post_cart = make([]dto.PostCart, len(cart_data))
+
+	for i, s := range cart_data {
+
+		c.DB.FindProductInfo(&pr[i], strconv.Itoa(s.ProductId))
+
+		post_cart[i].ProductId = s.ProductId
+		post_cart[i].Photo = pr[i].Photo
+		post_cart[i].Name = pr[i].Name
+		post_cart[i].Price = pr[i].Price * float32(s.ProductCount)
+	}
 
 	if err := c.DB.DeleteProductFromCart(params["code"]); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
+	if ok := encode(w, &post_cart); !ok {
+		return
+
+	}
+
 }
 func (c *CustomerController) GetProductInfo(w http.ResponseWriter, r *http.Request) {
 

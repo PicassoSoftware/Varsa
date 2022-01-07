@@ -1,10 +1,11 @@
+import 'package:FrontendBranchOffice/assets/const.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/assets/const.dart';
-import 'package:ui/models/cart_data_model.dart';
+
+import 'cart_data_model.dart';
 
 class ProductForCart extends StatelessWidget {
   CartData productForCart;
-  ProductForCart({required this.productForCart, Key? key}) : super(key: key);
+  ProductForCart(this.productForCart,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

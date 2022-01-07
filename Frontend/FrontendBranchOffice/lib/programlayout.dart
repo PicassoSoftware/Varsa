@@ -15,7 +15,7 @@ class ProgramLayout extends StatefulWidget {
 }
 
 class _ProgramLayoutState extends State<ProgramLayout> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -39,12 +39,12 @@ class _ProgramLayoutState extends State<ProgramLayout> {
       backgroundColor:kBackgroundColor,
       extendBody: true,
       appBar: AppBar(
+        centerTitle: true,
+        leading: Container(),
         actions: <Widget>[Container()],
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Image.asset(kLogoPath,fit: BoxFit.contain,height: 32,)],
+        title: Image.asset(kLogoPath,fit: BoxFit.contain,height: 32,
         ),
       ),
       body: Center(
@@ -64,16 +64,16 @@ class _ProgramLayoutState extends State<ProgramLayout> {
             backgroundColor: kBackgroundColor,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.map),
-                label: 'Konum',
+                icon: Icon(Icons.add),
+                label: 'Ekle',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.store),
-                label: 'Mağaza',
+                icon: Icon(Icons.verified),
+                label: 'Referans Onayla',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket),
-                label: 'Sepet',
+                icon: Icon(Icons.person),
+                label: 'Profil',
               ),
             ],
             currentIndex: _selectedIndex,

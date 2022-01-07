@@ -10,10 +10,8 @@ class Store extends StatefulWidget {
   List<Product> selected_product_list;
   List<Product> product_list;
   Function changePage;
-  String city, town, district;
 
-  Store(this.city, this.town, this.district, this.changePage,
-      this.selected_product_list, this.product_list,
+  Store(this.changePage, this.selected_product_list, this.product_list,
       {Key? key})
       : super(key: key);
 
@@ -36,125 +34,125 @@ class _StoreState extends State<Store> {
   }
 
   void _openSortModal(BuildContext context) {
-   showModalBottomSheet(
-     backgroundColor: kBackgroundColor,
-     context: context,
-     builder: (BuildContext context) {
-       return Column(
-         children: [
-           Expanded(
-             child: Row(
-               children: [
-                 Expanded(
-                   child: TextButton(
-                     child: const Text("En Düşük Fiyat"),
-                     onPressed: () {
-                       setState(() {
-                         widget.selected_product_list.sort(
-                             (a, b) => a.price.compareTo(b.price));
-                         Navigator.pop(context);
-                       });
-                     },
-                   ),
-                 ),
-               ],
-             ),
-           ),
-           Expanded(
-             child: Row(
-               children: [
-                 Expanded(
-                   child: TextButton(
-                     child: const Text("En Yüksek Fiyat"),
-                     onPressed: () {
-                       setState(() {
-                         widget.selected_product_list.sort(
-                             (a, b) => b.price.compareTo(a.price));
-                         Navigator.pop(context);
-                       });
-                     },
-                   ),
-                 )
-               ],
-             ),
-           ),
-           Expanded(
-             child: Row(
-               children: [
-                 Expanded(
-                   child: TextButton(
-                     child: const Text("Stoğu Az Olan"),
-                     onPressed: () {
-                       setState(() {
-                         widget.selected_product_list.sort(
-                             (a, b) => a.stock.compareTo(b.stock));
-                         Navigator.pop(context);
-                       });
-                     },
-                   ),
-                 )
-               ],
-             ),
-           ),
-           Expanded(
-             child: Row(
-               children: [
-                 Expanded(
-                   child: TextButton(
-                     child: const Text("Stoğu Bol Olan"),
-                     onPressed: () {
-                       setState(() {
-                         widget.selected_product_list.sort(
-                             (a, b) => b.stock.compareTo(a.stock));
-                         Navigator.pop(context);
-                       });
-                     },
-                   ),
-                 )
-               ],
-             ),
-           ),
-           Expanded(
-             child: Row(
-               children: [
-                 Expanded(
-                   child: TextButton(
-                     child: const Text("SKT'si Yakın Olan"),
-                     onPressed: () {
-                       setState(() {
-                         widget.selected_product_list.sort((a, b) =>
-                             a.daysForExpiration
-                                 .compareTo(b.daysForExpiration));
-                         Navigator.pop(context);
-                       });
-                     },
-                   ),
-                 )
-               ],
-             ),
-           ),
-           Expanded(
-             child: Row(
-               children: [
-                 Expanded(
-                   child: TextButton(
-                     child: const Text("SKT'si Uzak Olan"),
-                     onPressed: () {
-                       setState(() {
-                         widget.selected_product_list.sort((a, b) =>
-                             b.daysForExpiration
-                                 .compareTo(a.daysForExpiration));
-                         Navigator.pop(context);
-                       });
-                     },
-                   ),
-                 )
-               ],
-             ),
-           ),
-         ],
-       );
-     });
+    showModalBottomSheet(
+        backgroundColor: kBackgroundColor,
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        child: const Text("En Düşük Fiyat"),
+                        onPressed: () {
+                          setState(() {
+                            widget.selected_product_list
+                                .sort((a, b) => a.price.compareTo(b.price));
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        child: const Text("En Yüksek Fiyat"),
+                        onPressed: () {
+                          setState(() {
+                            widget.selected_product_list
+                                .sort((a, b) => b.price.compareTo(a.price));
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        child: const Text("Stoğu Az Olan"),
+                        onPressed: () {
+                          setState(() {
+                            widget.selected_product_list
+                                .sort((a, b) => a.stock.compareTo(b.stock));
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        child: const Text("Stoğu Bol Olan"),
+                        onPressed: () {
+                          setState(() {
+                            widget.selected_product_list
+                                .sort((a, b) => b.stock.compareTo(a.stock));
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        child: const Text("SKT'si Yakın Olan"),
+                        onPressed: () {
+                          setState(() {
+                            widget.selected_product_list.sort((a, b) => a
+                                .daysForExpiration
+                                .compareTo(b.daysForExpiration));
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        child: const Text("SKT'si Uzak Olan"),
+                        onPressed: () {
+                          setState(() {
+                            widget.selected_product_list.sort((a, b) => b
+                                .daysForExpiration
+                                .compareTo(a.daysForExpiration));
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -176,7 +174,8 @@ class _StoreState extends State<Store> {
           itemCount: widget.selected_product_list.length,
           itemBuilder: (BuildContext context, int index) {
             return SizedBox(
-                child: ProductForStore(widget.changePage,widget.selected_product_list[index]));
+                child: ProductForStore(
+                    widget.changePage, widget.selected_product_list[index]));
           });
     }
 
@@ -195,11 +194,11 @@ class _StoreState extends State<Store> {
                         if (value.isEmpty) {
                           widget.selected_product_list = widget.product_list;
                         } else {
-                          widget.selected_product_list =
-                              widget.selected_product_list.where((element) => element.name
-                                      .toLowerCase()
-                                      .contains(value))
-                                  .toList();
+                          widget.selected_product_list = widget
+                              .selected_product_list
+                              .where((element) =>
+                                  element.name.toLowerCase().contains(value))
+                              .toList();
                         }
                       })
                     },

@@ -1,3 +1,4 @@
+import 'package:FrontendBranchOffice/assets/const.dart';
 import 'package:flutter/material.dart';
 
 import 'Header.dart';
@@ -25,7 +26,7 @@ class LoginPage extends StatelessWidget {
             Expanded(
                 child: Container(
               decoration: BoxDecoration(
-                  color: Color(0xFFEAD7C7),
+                  color: kBackgroundColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(60),
                     topRight: Radius.circular(60),

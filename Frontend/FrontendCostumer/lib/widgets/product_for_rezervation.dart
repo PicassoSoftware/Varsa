@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ui/assets/const.dart';
 import 'package:ui/models/cart_data_model.dart';
+import 'package:ui/models/rezerv_data_model.dart';
 
-class ProductForCart extends StatelessWidget {
-  CartData productForCart;
-  ProductForCart({required this.productForCart, Key? key}) : super(key: key);
+class ProductForRezerv extends StatelessWidget {
+  RezervData productForCart;
+  ProductForRezerv({required this.productForCart, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,32 +23,36 @@ class ProductForCart extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  "${productForCart.name}",
+                  "Doğrulama Kodu: ${productForCart.code}",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 10,
                     fontWeight: FontWeight.bold,
                     color: kPrimaryColor,
                   ),
                 ),
                 SizedBox(
                   width: 8,
-                ),Container(
-                    width: 80,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    width: 100,
                     height: 80,
                     child: Center(
                       child: Text(
-                        "${productForCart.price}₺",
+                        "Kalan Süre: ${productForCart.lastdate} Dakika",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 10,
                           fontWeight: FontWeight.bold,
                           color: kPrimaryColor,
                         ),
                       ),
                     ),
                   ),
+                ),
               ],
             ),
           ),

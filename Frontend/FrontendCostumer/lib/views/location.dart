@@ -112,13 +112,23 @@ class _LocationState extends State<Location> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.all(15),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        widget.changeLocation(city, town, district);
-                        widget.changePage(1);
-                      },
-                      child: const Text("Ara"))),
+                padding: EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(kPrimaryColor)),
+                          onPressed: () {
+                            widget.changeLocation(city, town, district);
+                            widget.changePage(1);
+                          },
+                          child: const Text("Ara")),
+                    ),
+                  ],
+                ),
+              ),
             ],
           )
         ],

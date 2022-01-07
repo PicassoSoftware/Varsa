@@ -1,3 +1,4 @@
+import 'package:FrontendBranchOffice/assets/const.dart';
 import 'package:flutter/material.dart';
 
 import 'Button.dart';
@@ -13,7 +14,7 @@ class InputWrapper extends StatelessWidget {
           SizedBox(height: 40,),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFEAD7C7),
+              color: kBackgroundColor,
               borderRadius: BorderRadius.circular(10)
             ),
             child: InputField(),

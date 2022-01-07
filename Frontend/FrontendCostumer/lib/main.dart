@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late Future<List<Product>> selected_product_list;
   late Future<List<Product>> product_list;
-  List<Widget> _widgetOptions = <Widget>[Container(), Container(), Container()];
+
   int _selectedIndex = 0;
   String city = "istanbul", town = "ümraniye", district = "namık kemal";
 
@@ -52,40 +52,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<Product>> fetchProducts() async {
     dynamic response = [];
-    print("fetch içi: " + city);
+
     response = await http
         .get(Uri.parse('http://10.0.2.2:5001/storage/$city/$town/$district'));
     if (response.statusCode == 200) {
       return parseProducts(response.body);
     } else {
-      throw Exception('Unable to fetch products from the REST API');
+      return [];
     }
   }
+
+  late FutureBuilder<List<Product>> storeWidget;
 
   @override
   void initState() {
     city = "istanbul";
     town = "ümraniye";
     district = "namık kemal";
-    fetchProducts();
 
     _selectedIndex = 0;
-
-   // product_list = fetchProducts();
-
-    _widgetOptions = <Widget>[
-      Location(_changeLocation, _onItemTapped),
-      FutureBuilder<List<Product>>(
-          future: fetchProducts(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
-            return snapshot.hasData
-                ? Store(city, town, district, _onItemTapped, snapshot.data!,
-                    snapshot.data!)
-                : Store(city, town, district, _onItemTapped, [], []);
-          }),
-      Cart(fetchProducts()),
-    ];
   }
 
   void _onItemTapped(int index) {
@@ -100,8 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
       city = gCity;
       town = gTown;
       district = gDistrict;
-      product_list = fetchProducts();
-      print(city + town + district);
     });
   }
 
@@ -116,6 +99,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _widgetOptions = <Widget>[
+      Location(_changeLocation, _onItemTapped),
+      FutureBuilder<List<Product>>(
+          future: fetchProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+            return snapshot.hasData
+                ? Store(_onItemTapped, snapshot.data!, snapshot.data!)
+                : CircularProgressIndicator(
+                    color: kPrimaryColor,
+                  );
+          }),
+      Cart(_onItemTapped),
+    ];
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       extendBody: true,
